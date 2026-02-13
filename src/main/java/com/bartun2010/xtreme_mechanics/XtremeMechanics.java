@@ -1,5 +1,6 @@
 package com.bartun2010.xtreme_mechanics;
 
+import com.bartun2010.xtreme_mechanics.item.Moditems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -50,6 +51,8 @@ public class XtremeMechanics {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        Moditems.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -64,7 +67,10 @@ public class XtremeMechanics {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+    event.accept(Moditems.CELESTIALWRENCH);
+    event.accept(Moditems.RAWCELESTIUM);
+}
 
     }
 
